@@ -1,14 +1,16 @@
 import React from 'react';
 import Header from 'components/layout/header';
 import Footer from 'components/layout/footer';
+import ResponsiveAppBar from 'components/layout/appbar';
 import { Outlet } from "react-router-dom";
 
 const HeaderFooter = (props) => {
 	return (
     <div>
-      <Header></Header>
+      <Header />
+      <ResponsiveAppBar />
       <Outlet />
-      <Footer></Footer>
+      <Footer />
     </div>
 	);
 };
