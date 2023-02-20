@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Drive = (props) => {
+const DrivePage = (props) => {
 	return (
     <div>
       <h3>안녕하세요. Drive페이지 입니다.</h3>
@@ -8,4 +8,4 @@ const Drive = (props) => {
 	);
 };
 
-export default Drive;
+export default DrivePage;

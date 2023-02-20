@@ -3,7 +3,7 @@ import Header from 'components/layout/header';
 import Footer from 'components/layout/footer';
 import { Outlet } from "react-router-dom";
 
-const HeaderFooter = (props) => {
+const HeaderFooterLayout = (props) => {
 	return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ const HeaderFooter = (props) => {
 	);
 };
 
-export default HeaderFooter;
+export default HeaderFooterLayout;

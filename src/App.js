@@ -1,40 +1,53 @@
 import NotFound from "components/notFound";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HeaderFooter from "components/layout/headerFooter";
+
+// Layout
+import HeaderFooterLayout from "components/layout/headerFooterLayout";
+// import HeaderLayout from "components/layout/headerLayout";
 
 // Pages element
-import Main from "routes/main";
-import Login from "routes/login";
-import Register from "routes/register";
-import Drive from "routes/drive";
-import Profile from "routes/profile";
-import Admin from "routes/admin";
+import MainPage from "routes/mainPage";
+import LoginPage from "routes/loginPage";
+import RegisterPage from "routes/registerPage";
+import DrivePage from "routes/drivePage";
+import ProfilePage from "routes/profile/profilePage";
+import ProfileChangePwd from "routes/profile/profileChangePwd";
+import ProfileIndex from "routes/profile/profileIndex";
+import Admin from "routes/adminPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HeaderFooter />,  // layout 설정
+    element: <HeaderFooterLayout />,  // layout 설정
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Main />},
-      { path: 'login', element: <Login />, errorElement: <NotFound />},
-      { path: 'register', element: <Register />, errorElement: <NotFound />},
-      { path: 'drive', element: <Drive />, errorElement: <NotFound />},
-      { path: 'profile', element: <Profile />, errorElement: <NotFound />, 
+      { index: true, element: <MainPage />},
+      { path: 'drive', element: <DrivePage />, errorElement: <NotFound />},
+      { path: 'profile', element: <ProfilePage />, errorElement: <NotFound />, 
         children: [
-          {
-            path: 'changePwd', element: <Main />
-          }
+          { index: true, element: <ProfileIndex />},
+          { path: 'changePwd', element: <ProfileChangePwd />}
         ]
       },
       { path: 'admin', element: <Admin />, errorElement: <NotFound />,
         children: [
-          { index: true, element: <Main />},
-          { path: 'changePwd', element: <Main />},
+          { index: true, element: <MainPage />},
+          { path: 'changePwd', element: <MainPage />},
         ]
       },
+      { path: 'login', element: <LoginPage />, errorElement: <NotFound />},
+      { path: 'register', element: <RegisterPage />, errorElement: <NotFound />}
     ]
-  }
+  },
+  // {
+  //   path: "/",
+  //   element: <HeaderLayout />,  // layout 설정
+  //   errorElement: <NotFound />,
+  //   children: [
+  //     { path: 'login', element: <Login />, errorElement: <NotFound />},
+  //     { path: 'register', element: <Register />, errorElement: <NotFound />}
+  //   ]
+  // }
 ])
 
 function App() {
