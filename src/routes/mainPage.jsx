@@ -11,6 +11,7 @@ const MainPage = (props) => {
       <Link to='/Drive'>Drive</Link>
       <Link to='/Profile'>Profile</Link>
       <Link to='/Admin'>Admin</Link>
+      <Link to='/Password'>Password</Link>
     </div>
 	);
 };

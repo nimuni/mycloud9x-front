@@ -14,6 +14,9 @@ import ProfilePage from "routes/profile/profilePage";
 import ProfileChangePwd from "routes/profile/profileChangePwd";
 import ProfileIndex from "routes/profile/profileIndex";
 import Admin from "routes/adminPage";
+import MembershipPage from "routes/membershipPage";
+import PasswordPage from "routes/passwordPage";
+// import PasswordChangePage from "routes/passwordChangePage";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +39,10 @@ const router = createBrowserRouter([
         ]
       },
       { path: 'login', element: <LoginPage />, errorElement: <NotFound />},
-      { path: 'register', element: <RegisterPage />, errorElement: <NotFound />}
+      { path: 'register', element: <RegisterPage />, errorElement: <NotFound />},
+      { path: 'membership', element: <MembershipPage />, errorElement: <NotFound />},
+      { path: 'password', element: <PasswordPage />, errorElement: <NotFound />},
+      // { path: 'passwordchange', element: <PasswordChangePage />, errorElement: <NotFound />}
     ]
   },
   // {
