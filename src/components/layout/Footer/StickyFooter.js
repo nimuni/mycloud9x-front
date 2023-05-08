@@ -33,7 +33,6 @@ export default function StickyFooter() {
     >
       <Container maxWidth="sm">
         <Typography variant="body1">
-          텍스트
         </Typography>
         <Copyright />
       </Container>

@@ -1,16 +1,20 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-import { useNavigate } from "react-router-dom";
-import { login, logout } from '../../redux/slice/userSlice'
-
 export default function CustomAppbar() {
   const navigate = useNavigate()
-  const menuArray = [
+  const { id, role } = useSelector(
+    (state) => state.user
+  )
+
+  const userMenuArray = [
     {
       name: "HOME",
       path: "/"
@@ -28,9 +32,22 @@ export default function CustomAppbar() {
       path: "/Test"
     },
   ]
-  const menuRender = () => {
-    return menuArray.map((element) => (
-      <Link key={element.name} onClick={() => handleMove(element.path)} color="inherit" underline="hover" sx={{marginX: '8px'}}>
+  const adminMenuArray = [
+    {
+      name: "HOME",
+      path: "/"
+    }
+  ]
+  const userMenuRender = () => {
+    return userMenuArray.map((element) => (
+      <Link key={element.name} style={{"cursor":"pointer"}} onClick={() => handleMove(element.path)} color="inherit" underline="none" sx={{marginX: '8px'}}>
+        {element.name}
+      </Link>
+    ));
+  };
+  const adminMenuRender = () => {
+    return adminMenuArray.map((element) => (
+      <Link key={element.name} style={{"cursor":"pointer"}} onClick={() => handleMove(element.path)} color="inherit" underline="none" sx={{marginX: '8px'}}>
         {element.name}
       </Link>
     ));
@@ -46,8 +63,17 @@ export default function CustomAppbar() {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
           <Box sx={{ flexGrow: 8 }}>
-            {menuRender()}
+            {userMenuRender()}
+            {adminMenuRender()}
           </Box>
+          {/* <div>
+            {adminMenuRender()}
+          </div> */}
+          <div>
+            1
+          {id}
+          {role}
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

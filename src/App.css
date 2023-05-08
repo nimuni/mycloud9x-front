@@ -1,0 +1,57 @@
+html, body {
+  height: 100%;
+}
+#root {
+  height: 100%;
+}
+.App {
+  height: 100%;
+}
+main {
+  height: calc(100% - 64px);
+}
+
+/* 공통 css */
+.d-none {
+  display: none;
+}
+
+.flex-column-vh-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flex-row-vh-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 카드 */
+.custom-card {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 15px 15px 20px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 수직 스크롤바 */
+::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(180, 180, 180); /* 스크롤바 색상 */
+  border-radius: 8px; /* 스크롤바 모서리 반경 */
+}
+
+/* 수평 스크롤바 */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* 스크롤바 트랙 색상 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(180, 180, 180, 0.6); /* 스크롤바 색상 (마우스 오버) */
+}

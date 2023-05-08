@@ -16,6 +16,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axiosInstance from '@axios/axios'
+import { showLoading, hideLoading } from "@slice/backdropSlice";
+
 
 const theme = createTheme();
 
@@ -23,7 +25,6 @@ const checkIdDuplicate = async (id) => {
   try {
     console.log("call checkIdDuplicate")
     const response = await axiosInstance.get(`/user/duplicateIdCheck/${id}`)
-    console.log(response)
     return response.data
   } catch (error) {
     console.error(error)
@@ -35,7 +36,6 @@ const checkEmailDuplicate = async (email) => {
   try {
     console.log("call checkEmailDuplicate")
     const response = await axiosInstance.get(`/user/duplicateEmailCheck/${email}`)
-    console.log(response)
     return response.data
   } catch (error) {
     console.error(error)
@@ -67,7 +67,6 @@ export default function Register() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [email, setEmail] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false);
   const [idConflict, setIdConflict] = useState(false);
   const [emailConflict, setEmailConflict] = useState(false);
   const [error, setError] = useState(false);
@@ -95,8 +94,10 @@ export default function Register() {
       if (id === "") {
         return;
       }
+      dispatch(showLoading("ID체크중"))
       const isIdDuplicate = await checkIdDuplicate(id)
       setIdConflict(isIdDuplicate)
+      dispatch(hideLoading())
     } catch (error) {
       setError(error.message)
     }
@@ -109,8 +110,10 @@ export default function Register() {
         return;
       }
       console.log("call handleEmailBlur")
+      dispatch(showLoading("Email체크중"))
       const isEmailDuplicate = await checkEmailDuplicate(email)
       setEmailConflict(isEmailDuplicate)
+      dispatch(hideLoading())
       console.log(emailConflict)
     } catch (error) {
       setError(error.message)
@@ -120,13 +123,14 @@ export default function Register() {
   const handleSignup = async (e) => {
     console.log("call handleSignup")
     e.preventDefault()
-
+    dispatch(showLoading("회원가입중"))
     if (password !== passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.')
-      return
+      dispatch(hideLoading())
+      return;
     }
 
-    setIsLoading(true)
+    
     setError(null)
 
     // id, email 중복 여부 검증
@@ -134,23 +138,26 @@ export default function Register() {
     console.log(`emailConflict=${emailConflict}`)
     if (idConflict) {
       setError('이미 사용중인 아이디입니다.')
+      dispatch(hideLoading())
       return
     }
     if (emailConflict) {
       setError('이미 사용중인 이메일입니다.')
+      dispatch(hideLoading())
       return
     }
 
     try {
       // 회원가입 API 요청
       const signupResult = await signup(id, password, email)
+      dispatch(hideLoading())
       if(signupResult){
         navigate("/Login")
       } 
     } catch (e) {
       setError('회원가입 중 오류가 발생하였습니다.')
     } finally {
-      setIsLoading(false)
+      dispatch(hideLoading())
     }
   }
 

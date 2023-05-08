@@ -16,8 +16,13 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Copyright from '../../parts/Copyright';
-import { setUser } from '@slice/slice/userSlice';
+import Copyright from '@components/parts/Copyright';
+import Popup from '@components/parts/Popup';
+
+import { setUser } from '@slice/userSlice';
+import { showPopup } from '@parts/Popup/popupSlice';
+import { showLoading, hideLoading } from "@slice/backdropSlice";
+import { hidePopup } from "../../parts/Popup/popupSlice";
 
 const theme = createTheme();
 
@@ -28,19 +33,21 @@ export default function Login() {
   const { user } = useSelector(
     (state) => state.user
   )
-
-  const [isLoading, setIsLoading] = useState(false);
+  const { popupTitle } = useSelector(
+    (state) => state.popup
+  )
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(showLoading("로그인하는중"))
     const data = new FormData(event.currentTarget);
     const formData = {
       id: data.get('id'),
       password: data.get('password'),
     }
     try {
-      setIsLoading(true)
       const loginResult = await axiosInstance.post(`/login`, formData)
+      dispatch(showLoading("토큰세팅중"))
       if(loginResult.status == 200){
         const accessToken = loginResult.data.Authorization.split(" ")[1];
         localStorage.setItem("accessToken", accessToken);
@@ -54,15 +61,62 @@ export default function Login() {
         }
       } else {
         console.log(`result.status=${loginResult.status}`)
-        alert("로그인 실패1. 재로그인 바랍니다.")
+        alert("로그인 실패. 재로그인 바랍니다.")
       }
     } catch (error) {
       console.log(error)
-      alert("로그인 실패2. 재로그인 바랍니다.")
+      alert(error?.response?.data?.message || "로그인 실패. 재로그인 바랍니다.")
     } finally {
-      setIsLoading(false)
+      dispatch(hideLoading())
     }
   };
+
+  const handleFindId = async (event) => {
+    event.preventDefault();
+    dispatch(showPopup({
+      title: "ID 찾기",
+      content: "email을 입력해주세요",
+      width: 450
+    }))
+  }
+  const handleFindPassword = async (event) => {
+    event.preventDefault();
+    console.log("call handleFindPassword")
+    dispatch(showPopup({
+      title: "Password 찾기",
+      content: "email을 입력해주세요",
+      width: 450
+    }))
+  }
+  const handleRequestFind = async (event) => {
+    try {
+      console.log("call handleRequestFind")
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const formData = {
+        email: data.get('email')
+      }
+      let uri;
+      if(popupTitle === "ID 찾기") {
+        uri = "/user/findId"
+      } else if(popupTitle === "Password 찾기") {
+        uri = "/user/findPwd"
+      }
+      dispatch(showLoading("Email 전송중"))
+      const requestResult = await axiosInstance.post(uri, formData)
+      if(requestResult.status == 204){
+        alert("전송된 이메일을 확인해주세요.")
+        dispatch(hidePopup())
+      } else {
+        console.log(`result.status=${requestResult.status}`)
+        alert("요청 실패. 이메일 주소를 확인해주세요.")
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      dispatch(hideLoading())
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -76,6 +130,27 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
+          <Popup width="250">
+            <Box component="form" onSubmit={handleRequestFind} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+              >
+                찾기
+              </Button>
+            </Box>
+          </Popup>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -117,10 +192,10 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <a href='#' style={{marginRight:"8px"}}>
+                <a href='#' onClick={handleFindId} style={{marginRight:"8px"}}>
                   ID찾기
                 </a>
-                <a href='#'>
+                <a href='#' onClick={handleFindPassword} style={{marginRight:"8px"}}>
                   PW찾기
                 </a>
               </Grid>
