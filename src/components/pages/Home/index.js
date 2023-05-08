@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 function Home() {
   const onClickHandler = () => {};
 
-  const { user } = useSelector((state) => state.user)
+  const { provider, ownAPI, email, role } = useSelector((state) => state.user)
 
   return (
     <div>
       <h2>Home</h2>
-      <div>{user.provider}</div>
-      <div>{user.ownAPI}</div>
-      <div>{user.email}</div>
-      <div>{user.role}</div>
+      <div>{provider}</div>
+      <div>{ownAPI}</div>
+      <div>{email}</div>
+      <div>{role}</div>
     </div>
   )
 }

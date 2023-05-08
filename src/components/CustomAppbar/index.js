@@ -10,9 +10,7 @@ import Link from '@mui/material/Link';
 
 export default function CustomAppbar() {
   const navigate = useNavigate()
-  const { id, role } = useSelector(
-    (state) => state.user
-  )
+  const { id, role } = useSelector((state) => state.user)
 
   const userMenuArray = [
     {
@@ -52,6 +50,16 @@ export default function CustomAppbar() {
       </Link>
     ));
   };
+  const TestRender = () => {
+    console.log(id)
+    console.log(role)
+    return (
+      <div>
+        {id}
+        {role}
+      </div>
+    )
+  }
 
   const handleMove = (to) => {
     navigate(to)
@@ -71,8 +79,7 @@ export default function CustomAppbar() {
           </div> */}
           <div>
             1
-          {id}
-          {role}
+            <TestRender/>
           </div>
         </Toolbar>
       </AppBar>
