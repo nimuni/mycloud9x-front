@@ -1,5 +1,5 @@
 import NotFound from "components/notFound";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Layout
 import HeaderFooterLayout from "components/layout/headerFooterLayout";
@@ -16,34 +16,53 @@ import ProfileIndex from "routes/profile/profileIndex";
 import Admin from "routes/adminPage";
 import MembershipPage from "routes/membershipPage";
 import PasswordPage from "routes/passwordPage";
+
 // import PasswordChangePage from "routes/passwordChangePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HeaderFooterLayout />,  // layout 설정
+    element: <HeaderFooterLayout />, // layout 설정
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <MainPage />},
-      { path: 'drive', element: <DrivePage />, errorElement: <NotFound />},
-      { path: 'profile', element: <ProfilePage />, errorElement: <NotFound />, 
+      { index: true, element: <MainPage /> },
+      { path: "drive", element: <DrivePage />, errorElement: <NotFound /> },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+        errorElement: <NotFound />,
         children: [
-          { index: true, element: <ProfileIndex />},
-          { path: 'changePwd', element: <ProfileChangePwd />}
-        ]
+          { index: true, element: <ProfileIndex /> },
+          { path: "changePwd", element: <ProfileChangePwd /> },
+        ],
       },
-      { path: 'admin', element: <Admin />, errorElement: <NotFound />,
+      {
+        path: "admin",
+        element: <Admin />,
+        errorElement: <NotFound />,
         children: [
-          { index: true, element: <MainPage />},
-          { path: 'changePwd', element: <MainPage />},
-        ]
+          { index: true, element: <MainPage /> },
+          { path: "changePwd", element: <MainPage /> },
+        ],
       },
-      { path: 'login', element: <LoginPage />, errorElement: <NotFound />},
-      { path: 'register', element: <RegisterPage />, errorElement: <NotFound />},
-      { path: 'membership', element: <MembershipPage />, errorElement: <NotFound />},
-      { path: 'password', element: <PasswordPage />, errorElement: <NotFound />},
+      { path: "login", element: <LoginPage />, errorElement: <NotFound /> },
+      {
+        path: "register",
+        element: <RegisterPage />,
+        errorElement: <NotFound />,
+      },
+      {
+        path: "membership",
+        element: <MembershipPage />,
+        errorElement: <NotFound />,
+      },
+      {
+        path: "password",
+        element: <PasswordPage />,
+        errorElement: <NotFound />,
+      },
       // { path: 'passwordchange', element: <PasswordChangePage />, errorElement: <NotFound />}
-    ]
+    ],
   },
   // {
   //   path: "/",
@@ -54,7 +73,7 @@ const router = createBrowserRouter([
   //     { path: 'register', element: <Register />, errorElement: <NotFound />}
   //   ]
   // }
-])
+]);
 
 function App() {
   return (
