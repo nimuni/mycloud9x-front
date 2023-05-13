@@ -6,8 +6,10 @@ const initInstance = () => {
   try {
     if(!axiosInstance){
       axiosInstance = axios.create({
-        baseURL: 'https://nimuni.ml/api/',
-        headers: { "Content-type": "application/json" }
+        // baseURL: 'https://nimuni.ml/api/',
+        baseURL: 'http://localhost:8080/api/',
+        headers: { "Content-type": "application/json" },
+        withCredentials: true
       });
     }
     return axiosInstance
@@ -25,6 +27,8 @@ axiosInstance.interceptors.request.use(
     // 토큰 있으면 넣어주기
     if (config.headers && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+      console.log("config=")
+      console.log(config)
       return config;
     } else {
       return config
@@ -42,6 +46,11 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     const { config, response: { status } } = error
+    console.log("call response, error ")
+    console.log(config)
+    console.log(status)
+    console.log(error.response.data)
+    console.log(error.response.data.message === "Invalid access token")
     if (status === 401) {
       // response에서 unAuthorization 에러 발생시. 인터셉트. 
       if (error.response.data.message === "Invalid access token") {
@@ -49,10 +58,12 @@ axiosInstance.interceptors.response.use(
 
         try {
           // 토큰 재발급
-          const result = await axios.post(`/reGenerateAccessToken`)
-          const newAccessToken = result.data.Authorization.split(' ')[1];;
+          const result = await axiosInstance.post(`/reGenerateAccessToken`)
+          const newAccessToken = result.data.Authorization.split(' ')[1];
           localStorage.setItem("accessToken", newAccessToken);
           originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+          console.log("originalRequest")
+          console.log(originalRequest)
         } catch (reTokenError) {
           console.log(reTokenError)
           return Promise.reject(error);
@@ -60,6 +71,8 @@ axiosInstance.interceptors.response.use(
 
         // 401로 요청 실패했던 요청 새로운 accessToken으로 세팅해서 재요청
         return axios(originalRequest);
+      } else {
+        console.log("else Invalid access token")
       }
     }
     // 오류 응답을 처리

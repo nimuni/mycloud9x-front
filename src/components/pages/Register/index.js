@@ -23,7 +23,6 @@ const theme = createTheme();
 
 const checkIdDuplicate = async (id) => {
   try {
-    console.log("call checkIdDuplicate")
     const response = await axiosInstance.get(`/user/duplicateIdCheck/${id}`)
     return response.data
   } catch (error) {
@@ -34,7 +33,6 @@ const checkIdDuplicate = async (id) => {
 
 const checkEmailDuplicate = async (email) => {
   try {
-    console.log("call checkEmailDuplicate")
     const response = await axiosInstance.get(`/user/duplicateEmailCheck/${email}`)
     return response.data
   } catch (error) {
@@ -109,7 +107,6 @@ export default function Register() {
       if (email === "") {
         return;
       }
-      console.log("call handleEmailBlur")
       dispatch(showLoading("Email체크중"))
       const isEmailDuplicate = await checkEmailDuplicate(email)
       setEmailConflict(isEmailDuplicate)
@@ -121,7 +118,6 @@ export default function Register() {
   }
 
   const handleSignup = async (e) => {
-    console.log("call handleSignup")
     e.preventDefault()
     dispatch(showLoading("회원가입중"))
     if (password !== passwordConfirm) {
@@ -134,8 +130,6 @@ export default function Register() {
     setError(null)
 
     // id, email 중복 여부 검증
-    console.log(`idConflict=${idConflict}`)
-    console.log(`emailConflict=${emailConflict}`)
     if (idConflict) {
       setError('이미 사용중인 아이디입니다.')
       dispatch(hideLoading())

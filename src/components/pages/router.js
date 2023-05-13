@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import ErrorPage from '../pages/ErrorPage'
-import Layout from '../layout/Layout1';
-import Home from '../pages/Home'
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import Test from '../pages/Test'
+import ErrorPage from '@pages/ErrorPage'
+import Layout from '@layout/Layout1';
+import Home from '@pages/Home'
+import Login from '@pages/Login';
+import Register from '@pages/Register';
+import User from '@pages/User';
 
 export default createBrowserRouter([
   {
@@ -13,6 +13,7 @@ export default createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      // user 
       {
         path: "/",
         element: <Home />,
@@ -29,8 +30,30 @@ export default createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/Test",
-        element: <Test />,
+        path: "/User",
+        element: <User />,
+        errorElement: <ErrorPage />,
+      },
+
+      // admin 
+      {
+        path: "/admin",
+        element: <User />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/admin/Dashboard",
+        element: <User />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/admin/Storage",
+        element: <User />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/admin/UserList",
+        element: <User />,
         errorElement: <ErrorPage />,
       },
     ],

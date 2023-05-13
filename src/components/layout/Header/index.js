@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import CustomAppbar from '../../CustomAppbar';
+import CustomAppbar from '@components/parts/CustomAppbar';
 
 function Header() {
   return (

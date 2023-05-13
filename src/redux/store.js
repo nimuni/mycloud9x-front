@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countReducer from '@slice/countSlice'
 import userReducer from '@slice/userSlice'
 import backdropReducer from '@slice/backdropSlice'
 import popupReducer from '@parts/Popup/popupSlice'
@@ -9,7 +8,6 @@ import popupReducer from '@parts/Popup/popupSlice'
 const store = configureStore({
   reducer: {
     // selector name: reducer
-    count: countReducer,
     user: userReducer,
     backdrop: backdropReducer,
     popup: popupReducer,

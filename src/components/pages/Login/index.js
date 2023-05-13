@@ -22,7 +22,7 @@ import Popup from '@components/parts/Popup';
 import { setUser } from '@slice/userSlice';
 import { showPopup } from '@parts/Popup/popupSlice';
 import { showLoading, hideLoading } from "@slice/backdropSlice";
-import { hidePopup } from "../../parts/Popup/popupSlice";
+import { hidePopup } from "@components/parts/Popup/popupSlice";
 
 const theme = createTheme();
 
@@ -81,7 +81,6 @@ export default function Login() {
   }
   const handleFindPassword = async (event) => {
     event.preventDefault();
-    console.log("call handleFindPassword")
     dispatch(showPopup({
       title: "Password 찾기",
       content: "email을 입력해주세요",
@@ -90,7 +89,6 @@ export default function Login() {
   }
   const handleRequestFind = async (event) => {
     try {
-      console.log("call handleRequestFind")
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       const formData = {

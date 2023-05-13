@@ -14,7 +14,7 @@ export default function CustomAppbar() {
 
   const userMenuArray = [
     {
-      name: "HOME",
+      name: "Home",
       path: "/"
     },
     {
@@ -22,19 +22,27 @@ export default function CustomAppbar() {
       path: "/Login"
     },
     {
-      name: "Register",
-      path: "/Register"
-    },
-    {
-      name: "Test",
-      path: "/Test"
+      name: "User",
+      path: "/User"
     },
   ]
   const adminMenuArray = [
     {
-      name: "HOME",
-      path: "/"
-    }
+      name: "관리자페이지",
+      path: "/admin"
+    },
+    {
+      name: "대시보드",
+      path: "/admin/Dashboard"
+    },
+    {
+      name: "스토리지관리",
+      path: "/admin/Storage",
+    },
+    {
+      name: "사용자목록",
+      path: "/admin/UserList"
+    },
   ]
   const userMenuRender = () => {
     return userMenuArray.map((element) => (
@@ -51,12 +59,9 @@ export default function CustomAppbar() {
     ));
   };
   const TestRender = () => {
-    console.log(id)
-    console.log(role)
     return (
       <div>
         {id}
-        {role}
       </div>
     )
   }
@@ -69,18 +74,20 @@ export default function CustomAppbar() {
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
+          <Box sx={{width: 1/8}}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              MyCloud9x
+            </Typography>
+          </Box>
           <Box sx={{ flexGrow: 8 }}>
             {userMenuRender()}
-            {adminMenuRender()}
           </Box>
-          {/* <div>
+          {(role === 'admin') && <Box>
             {adminMenuRender()}
-          </div> */}
-          <div>
-            1
+          </Box>}
+          {id && <div>
             <TestRender/>
-          </div>
+          </div>}
         </Toolbar>
       </AppBar>
     </Box>
