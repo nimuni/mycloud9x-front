@@ -12,15 +12,12 @@ function Home() {
     console.log(result)
   }
 
-  const { provider, ownAPI, email, role } = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user)
 
   return (
     <div>
       <h2>Home</h2>
-      <div>{provider}</div>
-      <div>{ownAPI}</div>
-      <div>{email}</div>
-      <div>{role}</div>
+      <div>{JSON.stringify(user)}</div>
       <a onClick={handleTest}>123</a>
     </div>
   )

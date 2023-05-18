@@ -14,12 +14,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axiosInstance from '@axios/axios'
 import { showLoading, hideLoading } from "@slice/backdropSlice";
 
-
-const theme = createTheme();
 
 const checkIdDuplicate = async (id) => {
   try {
@@ -156,7 +153,7 @@ export default function Register() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -259,6 +256,6 @@ export default function Register() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   );
 }

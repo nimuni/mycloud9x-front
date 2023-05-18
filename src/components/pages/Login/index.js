@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -23,8 +22,6 @@ import { setUser } from '@slice/userSlice';
 import { showPopup } from '@parts/Popup/popupSlice';
 import { showLoading, hideLoading } from "@slice/backdropSlice";
 import { hidePopup } from "@components/parts/Popup/popupSlice";
-
-const theme = createTheme();
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -117,7 +114,7 @@ export default function Login() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -207,6 +204,6 @@ export default function Login() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    </>
   );
 }

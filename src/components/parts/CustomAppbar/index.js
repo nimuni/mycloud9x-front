@@ -71,18 +71,18 @@ export default function CustomAppbar() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1}}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Box sx={{width: 1/8}}>
+          <Box sx={{ flexGrow: 0, mr: 2 }}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               MyCloud9x
             </Typography>
           </Box>
-          <Box sx={{ flexGrow: 8 }}>
+          <Box sx={{ flexGrow: 1 }}>
             {userMenuRender()}
           </Box>
-          {(role === 'admin') && <Box>
+          {(role === 'admin') && <Box sx={{ flexGrow: 0 }}>
             {adminMenuRender()}
           </Box>}
           {id && <div>

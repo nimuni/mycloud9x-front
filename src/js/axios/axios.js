@@ -27,8 +27,6 @@ axiosInstance.interceptors.request.use(
     // 토큰 있으면 넣어주기
     if (config.headers && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
-      console.log("config=")
-      console.log(config)
       return config;
     } else {
       return config

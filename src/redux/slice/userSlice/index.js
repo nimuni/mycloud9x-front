@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axiosInstance from '@axios/axios'
+import { createSlice } from '@reduxjs/toolkit'
+import { changeUserPassword, changeUserNickname} from './method.js'
 
 const initialState = {
   _id: '',
@@ -7,43 +7,30 @@ const initialState = {
   id: '',
   email: '',
   email_verified: false,
+  nickname: '',
   role: '',
   createdAt: null,
   updatedAt: null,
 }
 
-export const changeUserPassword = createAsyncThunk(
-  'user/changePassword',
-  async ({userId, password}, thunkAPI) => {
-    const uri = `/user/${userId}`
-    const response = await axiosInstance.put(uri, {password: password})
-    return response
-  }
-)
-export const changeUserNickname = createAsyncThunk(
-  'user/changeNickname',
-  async ({userId, nickname}, thunkAPI) => {
-    const uri = `/user/${userId}`
-    const response = await axiosInstance.put(uri, {nickname: nickname})
-    return response.data
-  }
-)
+
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { _id, provider, id, email, email_verified, role, createdAt, updatedAt} = action.payload
+      const { _id, provider, id, email, email_verified, nickname, role, createdAt, updatedAt} = action.payload
       state._id = _id;
       state.provider = provider;
       state.id = id;
-      state.email = email;
+      state.nickname = nickname;
       state.email_verified = email_verified;
+      state.email = email;
       state.role = role;
       state.createdAt = createdAt;
       state.updatedAt = updatedAt;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,12 +49,9 @@ export const userSlice = createSlice({
       })
       .addCase(changeUserNickname.fulfilled, (state, action) => {
         console.log("changeUserNickname fulfilled")
-        console.log(state)
-        console.log(action.payload)
-        const axiosResponse = action.payload
-        if(axiosResponse.status == 201){
-          
-        }
+        const { nickname, updatedAt } = action.payload;
+        state.nickname = nickname;
+        state.updatedAt = updatedAt;
       })
       .addCase(changeUserNickname.rejected, (state) => {
         console.log("changeUserNickname rejected")
@@ -80,3 +64,4 @@ export const {
   setUser
 } = userSlice.actions
 export default userSlice.reducer;  // 기본적으로 reducer를 내보낸다.
+export { changeUserPassword, changeUserNickname }
