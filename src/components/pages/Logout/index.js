@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@slice/userSlice';
-import axiosInstance from '@axios/axios'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -32,7 +31,7 @@ export default function Login() {
       dispatch(logout())
       navigate("/Login")
     }
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -108,10 +107,10 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <a href='#' style={{marginRight:"8px"}}>
+                <a href='!#' style={{marginRight:"8px"}}>
                   ID찾기
                 </a>
-                <a href='#' style={{marginRight:"8px"}}>
+                <a href='!#' style={{marginRight:"8px"}}>
                   PW찾기
                 </a>
               </Grid>
