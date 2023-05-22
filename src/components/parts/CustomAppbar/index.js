@@ -20,72 +20,60 @@ export default function CustomAppbar() {
     {
       name: "Home",
       path: "/",
-      condition: VISITOR_ROLE
+      role: [VISITOR_ROLE, USER_ROLE, ADMIN_ROLE]
     },
     {
       name: "Login",
       path: "/Login",
-      condition: VISITOR_ROLE
+      role: [VISITOR_ROLE]
     },
     {
       name: "User",
       path: "/User",
-      condition: USER_ROLE
+      role: [USER_ROLE, ADMIN_ROLE]
     },
   ]
   const adminMenuArray = [
     {
       name: "관리자페이지",
       path: "/admin",
-      condition: ADMIN_ROLE
+      role: [ADMIN_ROLE]
     },
     {
       name: "대시보드",
       path: "/admin/Dashboard",
-      condition: ADMIN_ROLE
+      role: [ADMIN_ROLE]
     },
     {
       name: "스토리지관리",
       path: "/admin/Storage",
-      condition: ADMIN_ROLE
+      role: [ADMIN_ROLE]
     },
     {
       name: "사용자목록",
       path: "/admin/UserList",
-      condition: ADMIN_ROLE
+      role: [ADMIN_ROLE]
     },
   ]
+  const menuFilter = (menuArray) => {
+    return menuArray.filter((element) => {
+      return element.role.includes(role) ? true : false;
+    })
+  }
   const userMenuRender = () => {
-    /* const filteredMenuArray = userMenuArray.filter((element) => {
-      switch (role) {
-        case value:
-          
-          break;
-      
-        default:
-          break;
-      }
-    }) */
-    return userMenuArray.map((element) => 
+    return menuFilter(userMenuArray).map((element) => 
       <Link key={element.name} style={{"cursor":"pointer"}} onClick={() => handleMove(element.path)} color="inherit" underline="none" sx={{marginX: '8px'}}>
         {element.name}
       </Link>
     );
   };
   const adminMenuRender = () => {
-    return adminMenuArray.map((element) => (
+    return menuFilter(adminMenuArray).map((element) => (
       <Link key={element.name} style={{"cursor":"pointer"}} onClick={() => handleMove(element.path)} color="inherit" underline="none" sx={{marginX: '8px'}}>
         {element.name}
       </Link>
     ));
   };
-  const TestRender = () => {
-    return (
-      <div>
-        {id}
-      </div>
-    )
-  }
 
   const handleMove = (to) => {
     navigate(to)
@@ -106,9 +94,6 @@ export default function CustomAppbar() {
           {(role === 'admin') && <Box sx={{ flexGrow: 0 }}>
             {adminMenuRender()}
           </Box>}
-          {id && <div>
-            <TestRender/>
-          </div>}
         </Toolbar>
       </AppBar>
     </Box>
