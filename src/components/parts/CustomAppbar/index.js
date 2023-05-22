@@ -28,6 +28,11 @@ export default function CustomAppbar() {
       role: [VISITOR_ROLE]
     },
     {
+      name: "Logout",
+      path: "/Logout",
+      role: [USER_ROLE, ADMIN_ROLE]
+    },
+    {
       name: "User",
       path: "/User",
       role: [USER_ROLE, ADMIN_ROLE]

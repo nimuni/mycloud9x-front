@@ -4,6 +4,7 @@ import ErrorPage from '@pages/ErrorPage'
 import Layout from '@layout/Layout1';
 import Home from '@pages/Home'
 import Login from '@pages/Login';
+import Logout from '@pages/Logout';
 import Register from '@pages/Register';
 import User from '@pages/User';
 
@@ -22,6 +23,11 @@ export default createBrowserRouter([
       {
         path: "/Login",
         element: <Login />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/Logout",
+        element: <Logout />,
         errorElement: <ErrorPage />,
       },
       {

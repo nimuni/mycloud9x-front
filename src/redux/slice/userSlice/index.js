@@ -34,6 +34,18 @@ export const userSlice = createSlice({
       state.createdAt = createdAt;
       state.updatedAt = updatedAt;
     },
+    logout:  (state, action) => {
+      console.log("call logout")
+      state._id = initialState._id;
+      state.provider = initialState.provider;
+      state.id = initialState.id;
+      state.nickname = initialState.nickname;
+      state.email_verified = initialState.email_verified;
+      state.email = initialState.email;
+      state.role = initialState.role;
+      state.createdAt = initialState.createdAt;
+      state.updatedAt = initialState.updatedAt;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,7 +77,7 @@ export const userSlice = createSlice({
 })
 
 export const {
-  setUser
+  setUser, logout
 } = userSlice.actions
 export default userSlice.reducer;  // 기본적으로 reducer를 내보낸다.
 export { changeUserPassword, changeUserNickname }
