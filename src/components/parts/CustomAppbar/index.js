@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ import Link from '@mui/material/Link';
 
 export default function CustomAppbar() {
   const navigate = useNavigate()
-  const { id, role } = useSelector((state) => state.user)
+  const { role } = useSelector((state) => state.user)
 
   const VISITOR_ROLE = '';
   const USER_ROLE = 'user';
@@ -18,23 +18,8 @@ export default function CustomAppbar() {
 
   const userMenuArray = [
     {
-      name: "Home",
-      path: "/",
-      role: [VISITOR_ROLE, USER_ROLE, ADMIN_ROLE]
-    },
-    {
-      name: "Login",
-      path: "/Login",
-      role: [VISITOR_ROLE]
-    },
-    {
-      name: "Logout",
-      path: "/Logout",
-      role: [USER_ROLE, ADMIN_ROLE]
-    },
-    {
-      name: "User",
-      path: "/User",
+      name: "드라이브",
+      path: "/Drive",
       role: [USER_ROLE, ADMIN_ROLE]
     },
   ]
@@ -60,6 +45,23 @@ export default function CustomAppbar() {
       role: [ADMIN_ROLE]
     },
   ]
+  const myMenuArray = [
+    {
+      name: "마이페이지",
+      path: "/User",
+      role: [USER_ROLE, ADMIN_ROLE]
+    },
+    {
+      name: "Login",
+      path: "/Login",
+      role: [VISITOR_ROLE]
+    },
+    {
+      name: "Logout",
+      path: "/Logout",
+      role: [USER_ROLE, ADMIN_ROLE]
+    },
+  ]
   const menuFilter = (menuArray) => {
     return menuArray.filter((element) => {
       return element.role.includes(role) ? true : false;
@@ -79,6 +81,13 @@ export default function CustomAppbar() {
       </Link>
     ));
   };
+  const myMenuRender = () => {
+    return menuFilter(myMenuArray).map((element) => (
+      <Link key={element.name} style={{"cursor":"pointer"}} onClick={() => handleMove(element.path)} color="inherit" underline="none" sx={{marginX: '8px'}}>
+        {element.name}
+      </Link>
+    ));
+  };
 
   const handleMove = (to) => {
     navigate(to)
@@ -90,15 +99,20 @@ export default function CustomAppbar() {
         <Toolbar>
           <Box sx={{ flexGrow: 0, mr: 2 }}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MyCloud9x
+              <Link style={{"cursor":"pointer"}} onClick={() => handleMove('/')} color="inherit" underline="none" sx={{marginX: '8px'}}>
+                MyCloud9x
+              </Link>
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1 }}>
             {userMenuRender()}
           </Box>
-          {(role === 'admin') && <Box sx={{ flexGrow: 0 }}>
+          {(role === 'admin') && <Box sx={{ flexGrow: 0, marginX: '24px'}}>
             {adminMenuRender()}
           </Box>}
+          <div>
+            {myMenuRender()}
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
