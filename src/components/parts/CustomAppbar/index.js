@@ -12,44 +12,65 @@ export default function CustomAppbar() {
   const navigate = useNavigate()
   const { id, role } = useSelector((state) => state.user)
 
+  const VISITOR_ROLE = '';
+  const USER_ROLE = 'user';
+  const ADMIN_ROLE = 'admin';
+
   const userMenuArray = [
     {
       name: "Home",
-      path: "/"
+      path: "/",
+      condition: VISITOR_ROLE
     },
     {
       name: "Login",
-      path: "/Login"
+      path: "/Login",
+      condition: VISITOR_ROLE
     },
     {
       name: "User",
-      path: "/User"
+      path: "/User",
+      condition: USER_ROLE
     },
   ]
   const adminMenuArray = [
     {
       name: "관리자페이지",
-      path: "/admin"
+      path: "/admin",
+      condition: ADMIN_ROLE
     },
     {
       name: "대시보드",
-      path: "/admin/Dashboard"
+      path: "/admin/Dashboard",
+      condition: ADMIN_ROLE
     },
     {
       name: "스토리지관리",
       path: "/admin/Storage",
+      condition: ADMIN_ROLE
     },
     {
       name: "사용자목록",
-      path: "/admin/UserList"
+      path: "/admin/UserList",
+      condition: ADMIN_ROLE
     },
   ]
   const userMenuRender = () => {
-    return userMenuArray.map((element) => (
+    /* const filteredMenuArray = userMenuArray.filter((element) => {
+      switch (role) {
+        case value:
+          
+          break;
+      
+        default:
+          break;
+      }
+    }) */
+    return userMenuArray.map((element) => 
       <Link key={element.name} style={{"cursor":"pointer"}} onClick={() => handleMove(element.path)} color="inherit" underline="none" sx={{marginX: '8px'}}>
         {element.name}
       </Link>
-    ));
+    );
   };
   const adminMenuRender = () => {
     return adminMenuArray.map((element) => (

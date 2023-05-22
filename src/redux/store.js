@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import userReducer from '@slice/userSlice'
@@ -22,6 +22,9 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
   reducer: persistedReducer,
+  // Redux Toolkit에서 자동생성해주는 action이 action 생성자 함수형태라서 string이 아니라 함수가 전달되서 오류. 
+  // toString 대신 미들웨어 선언
+  middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false})
 })
 
 export default store

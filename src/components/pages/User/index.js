@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -22,11 +22,12 @@ function a11yProps(index) {
   };
 }
 
-export default function Login() {
+export default function User() {
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0);  // 탭 선택을 위한 tempValue 변경
 
-  const { id } = useSelector(state => state.user);
+  const { id, nickname } = useSelector(state => state.user);
+
 
   const handleChangePassword = async (event) => {
     event.preventDefault();

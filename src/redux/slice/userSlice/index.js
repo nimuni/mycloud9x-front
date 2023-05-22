@@ -20,6 +20,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
+      console.log("call setUser")
+      console.log(state)
+      console.log(action)
       const { _id, provider, id, email, email_verified, nickname, role, createdAt, updatedAt} = action.payload
       state._id = _id;
       state.provider = provider;
@@ -49,6 +52,7 @@ export const userSlice = createSlice({
       })
       .addCase(changeUserNickname.fulfilled, (state, action) => {
         console.log("changeUserNickname fulfilled")
+        console.log(action.payload)
         const { nickname, updatedAt } = action.payload;
         state.nickname = nickname;
         state.updatedAt = updatedAt;

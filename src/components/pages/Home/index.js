@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '@axios/axios'
 
-function Home() {
+export default function Home() {
   const onClickHandler = () => {};
   const handleTest = async (event) => {
     event.preventDefault()
@@ -22,5 +22,3 @@ function Home() {
     </div>
   )
 }
-
-export default Home
