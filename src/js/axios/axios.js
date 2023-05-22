@@ -23,7 +23,7 @@ initInstance();
 axiosInstance.interceptors.request.use(
   (config) => {
     // 요청전 수행할 일
-    const accessToken = localStorage.getItem("accessToken");
+    let accessToken = localStorage.getItem("accessToken");
     // 토큰 있으면 넣어주기
     if (config.headers && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
